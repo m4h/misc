@@ -25,7 +25,7 @@ COMMIT
 
 ## ssh_config - connect to private network via nat|bastion|gateway node
 
-ssh_config content
+ssh_config content:
 ```
 Host gateway
     HostName 1.2.3.4
@@ -44,4 +44,5 @@ to connect:
 └─14:52─> $ ssh 172.31.62.94
 Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-1049-aws x86_64)
 ...
+ubuntu@ip-172-31-62-94:~$
 ```
