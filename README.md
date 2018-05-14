@@ -22,3 +22,26 @@ COMMIT
 ```
 
 [Taken from here](https://debian-handbook.info/browse/stable/sect.quality-of-service.html)
+
+## ssh_config - connect to private network via nat|bastion|gateway node
+
+ssh_config content
+```
+Host gateway
+    HostName 1.2.3.4
+    IdentityFile /home/meadow/.ssh/london.pem
+    User ubuntu
+
+Host 172.31.*
+    ProxyJump gateway
+    IdentityFile /home/meadow/.ssh/london.pem
+    User ubuntu
+```
+
+to connect:
+```
+┌─berry@meadow [workspace]
+└─14:52─> $ ssh 172.31.62.94
+Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-1049-aws x86_64)
+...
+```
