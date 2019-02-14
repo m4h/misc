@@ -88,6 +88,7 @@ Will be happy to hear yours with explanation (if possible).
 
 - answer from Avishai Ish-Shalom:
 One of the general results of queuing theory is the latency/throughput tradeoff - meaning that tuning for latency hurts throughput and vice versa. Since many components in the network stack heavily rely on queueing and batching increasing latency often helps throughput, and in fact this is how schedulers work! E.g. if you look at the IO scheduler settings in linux one of the important tunables is the queue length, which improves throughput by hurting latency and gives the O/S better chance to merge IO requests, etc. Note that increasing latency in this case was done in the kernel and not in the network itself, true network latency will reduce throughput due to TCP window starvation.
+```
 
 ## ssh_config - connect to private network via nat|bastion|gateway node
 
