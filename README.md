@@ -113,3 +113,36 @@ Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-1049-aws x86_64)
 ...
 ubuntu@ip-172-31-62-94:~$
 ```
+
+## making GUI remote access with nested X session
+
+what is the use case?
+- get GUI remote access (aka remote desktop) to some linux box.
+
+it is easy to run a single app by using `ssh` `X forwarding` (`-X` flag) and fire a GUI cmd (e.g. `firefox`) on a remote side. 
+but what if whole session need to be forwarded? in this case nested X servers can be used.
+there are two major `Xnested` and its successor `Xephyr`. they will spawn a separate XServer on top of already running XServer.
+in conjuctions with `ssh` remote session can be forwarded to nested XServer session.
+
+spawn a nested XServer session on your node.
+```
+┌─berry@meadow [~]
+└─19:51─> $ Xephyr :2 -ac -screen 800x600 2>/dev/null &
+```
+
+export a `DISPLAY` to one used by nested session.
+```
+┌─berry@meadow [~]
+└─19:51─> $ export DISPLAY=:2
+```
+
+connect to a remote node and run a session manager there.
+```
+┌─berry@meadow [~]                                                              
+└─19:51─> $ ssh -YC forest@gump
+forest@gump:[~]$ gnome-session
+```
+
+now whole `gnome-session` is forwared to a nested XServer on ready for use :-)
+
+[the idea is taken from here](http://www.physics.drexel.edu/~wking/unfolding-disasters-old/posts/Xephyr/)
